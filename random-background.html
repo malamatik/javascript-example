@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- function - date - setTimeout - interval - random  
+παρομοιο με το JS8-1 - αντι για select βαζουμε type=color -->
+<html>
+<head>
+	<title>DATE - BACKGROUND CHANGE</title>
+	<style type="text/css">
+		body{
+			font-size: 24px;
+			background: lightyellow;
+			color: darkblue;
+		}	
+		button, select{
+			width: 200px;
+			height: 50px;
+			font-size: 18px
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		// interval: εκτελειται συνέχεια κάθε π.χ. 1000 - 1 sec
+		var timer = setInterval(clock, 1000);
+
+		function clock() {
+        	now= new Date();
+        	hours= now.getHours();
+        	if (hours < 12) 
+				mes = "Good morning";
+			else 
+				mes ="Good Evening";
+			document.getElementById('m1').innerHTML = mes; 
+           	document.getElementById('hr').innerHTML = now.toLocaleTimeString(); 
+           	document.getElementById('dt').innerHTML = now.toLocaleDateString(); 
+        }
+
+        function start_clock() {
+        	timer = setInterval(clock, 1000);
+        	document.getElementById("startbut").disabled = true;
+        }
+
+        function stop_clock() {
+        	clearInterval(timer);
+        	document.getElementById("startbut").disabled = false;
+        }
+
+        function ftimer() {
+			// setTimeout: εκτελειται μία φορά μετά από π.χ. 2000 - 2 sec
+			timer1=setTimeout("chcolor()", 2000);
+		}
+
+		function chcolor() {
+			var r,g,b;
+			r=Math.floor(Math.random() * 256);
+			g=Math.floor(Math.random() * 256);
+			b=Math.floor(Math.random() * 256); 
+			//document.body.style.backgroundColor = "rgb(" + r + "," + g + "," + b +")";
+			document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+		}
+
+	</script>
+	
+</head>
+<body>
+
+<h3>DATE - BACKGROUND CHANGE</h3>
+<p id="m1"></p>
+<div>Time: <span id="hr"></span> 
+<button id='startbut' onclick="start_clock()" disabled >Start</button>
+<button onclick="stop_clock()">Stop</button>
+</div>
+<p>Date: <span id="dt"></span></p>
+
+<button onclick="ftimer()">Run after ...</button>&nbsp;&nbsp;
+<button onclick="chcolor()">Change background</button>&nbsp;&nbsp;
+Font color: 
+<input type="color" onchange="document.body.style.color=this.value"><br>
+
+</body>
+
+</html>

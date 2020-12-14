@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>javascript event</title>
+	<style type="text/css">
+		table, td{
+			border: 1px solid blue;
+		}
+		td {
+			width: 40px;
+			height: 30px;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript">
+		
+		function table_fill() {
+			var tabl = document.getElementById('tbl');
+			var i, j, rndnum;
+			for (i=0;i<5;i++)
+				for(j=0;j<5; j++)
+				{
+					rndnum = Math.floor(Math.random() * 10) + 1;
+					tabl.rows[i].cells[j].innerHTML = rndnum;
+					if (rndnum <= 5)
+						tabl.rows[i].cells[j].style.background = "red";
+					else
+						tabl.rows[i].cells[j].style.background = "green";
+				}
+		}
+
+	</script>
+</head>
+<body>
+<h2>TABLE - RANDOM NUMBERS - JAVASCRIPT</h2>
+
+<table id="tbl">
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<br><br>
+<input type="button" name="rnd" value="Fill" onclick="table_fill()">
+<br>
+</body>
+</html>

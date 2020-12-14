@@ -1,0 +1,69 @@
+<!-- θα αποθηκεύετε σε ένα πίνακα μία σειρά από εικόνες. δύο κουμπιά   «Previous»,  «Next»  που όταν θα τα πατάει ο χρήστης θα εμφανίζεται το προηγούμενο ή  επόμενο στη σειρά γραφικό – εικόνα  που είναι αποθηκευμένα στον  πίνακα. ακόμη  2 κουμπιά για έναρξη "Start" και σταμάτημα "Stop" του slide show που θα αλλάζει πλέον από μόνο του κάθε 1 δευτερόλεπτο  τις εικόνες.  
+  -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>javascript event</title>
+	<style type="text/css">
+		table, td{
+			border: 1px solid blue;
+		}
+		td {
+			width: 40px;
+			height: 30px;
+			text-align: center;
+		}
+		div {
+			width: 50%;
+			margin: auto;
+		}
+	</style>
+	<script type="text/javascript">
+		var str;
+		var img_array = ["img/code0.jpg", "img/code1.jpg", "img/code2.jpg", "img/code3.jpg", "img/code4.jpg"];
+		var current=0;
+
+		function SlideImage() {
+			str=setInterval(move, 1000, 1); // 1 είναι η παράμετρος του move()
+			document.getElementById("start").disabled = true;
+		}
+
+		function StopImage() {
+        	clearInterval(str);
+        	document.getElementById("start").disabled = false;
+        }
+
+		function LoadImage() {
+			document.getElementById('demo').src=img_array[current];
+			
+		}
+		function move(step)
+		{
+			current = current + step;
+			if (current < 0)
+				current = img_array.length - 1;
+			else if (current > img_array.length - 1)
+				current = 0;
+
+			LoadImage();
+		}
+
+	</script>
+</head>
+<body >
+<div>
+<br>
+<h2>Slide Show Images</h2>
+<br>
+<img src="img/code0.jpg" id="demo" width="300" height="250">
+<br><br>
+<input type="button" id="pr" value="Previous" onclick="move(-1)">&nbsp;&nbsp;&nbsp;
+<input type="button" id="nx" value="Next" onclick="move(1)">&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" id="start" value="Start" onclick="SlideImage()">&nbsp;&nbsp;&nbsp;
+<input type="button" id="stop" value="Stop" onclick="StopImage()">
+<br>
+</div>
+
+</body>
+</html>

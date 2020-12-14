@@ -1,0 +1,82 @@
+<!-- Να φτιάξετε μια απλή έκδοση του παιχνιδιού «Πέτρα, χαρτί, ψαλίδι». Ο χρήστης θα πρέπει να επιλέγει μία εικόνα (πέτρα, ψαλίδι, χαρτί) και θα εμφανίζεται μια τυχαία εικόνα (πέτρα, ψαλίδι, χαρτί) από τον υπολογιστή. Ανάλογα το αποτέλεσμα θα εμφανίζονται οι νίκες του χρήστη και του υπολογιστή.  -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rock-Paper-Scissors</title>
+	<style type="text/css">
+		body {
+			background-color:	#ff4500;
+		}
+		table, td{
+			width: 99%;
+			border: 2px solid red;
+			text-align: center;
+			border-collapse: collapse;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		var img_array = ["img/rock.png", "img/scissors.png", "img/paper.png"];
+		wuser=wcomp=0;
+		function first_load() {
+			document.getElementById("demo").style.visibility = "hidden";
+		}
+
+		function display_img(curr) {
+			var ccomp=Math.floor(Math.random() * 3);
+			document.getElementById("demo").style.visibility = "visible";
+			document.getElementById("demo").src=img_array[ccomp];
+			if (curr==0)
+			{  					// παικτης:πετρα
+				if(ccomp==1)  // υπολ: ψαλιδι
+					wuser++;
+				else if (ccomp==2) // υπολ: χαρτι
+					wcomp++;
+			}
+			else if (curr==1)   			// παικτης:ψαλιδι
+			{
+				if(ccomp==0)  // υπολ: πετρα
+					wcomp++;
+				else if (ccomp==2)  // υπολ: χαρτι
+					wuser++;
+			}
+			else
+			{							// παικτης:χαρτι
+				if(ccomp==0)  // υπολ: πετρα
+					wuser++;
+				else if (ccomp==1)  // υπολ: ψαλιδι
+					wcomp++;
+			}
+			
+			document.getElementById("winuser").innerHTML = "User Wins: " + wuser;
+			document.getElementById("wincomp").innerHTML = "Computer Wins: " + wcomp;
+		}
+	</script>
+</head>
+<body onload="first_load()">
+
+<h2 style="text-align: center;">Game: Rock-Paper-Scissors</h2>
+
+<br><br>
+
+<table>
+	<tr style="background-color: #00ffff;">
+		<th>User Selection</th>
+		<th>Computer selection</th>
+	</tr>
+	<tr>
+		<td style="width: 65%; height: 300px; background-color: orange;">
+			<img src="img/rock.png" id="img1" width="200" height="200" onclick="display_img(0);">&nbsp;&nbsp;&nbsp;
+			<img src="img/scissors.png" id="img2" width="200" height="200"  onclick="display_img(1);">&nbsp;&nbsp;&nbsp;
+			<img src="img/paper.png" id="img3" width="200" height="200"  onclick="display_img(2);">&nbsp;&nbsp;
+		</td>
+		<td style="width: 34%; background-color: yellow;"><img src="img/rock.png" id="demo" width="200" height="200"></td>
+	</tr>
+	<tr style="background-color: #7fff00;">
+		<td style="width: 65%" id="winuser"></td>
+		<td style="width: 34%" id="wincomp"></td>
+	</tr>
+</table>
+</body>
+</html>

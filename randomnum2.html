@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>javascript event</title>
+	<style type="text/css">
+		body {
+			font-size: 18px;
+		}
+		table, td{
+			border: 1px solid blue;
+
+		}
+		td {
+			width: 60px;
+			height: 40px;
+			text-align: center;
+		}
+		div {
+			width: 60%;
+			margin: auto;
+		}
+		input[type="button"]{
+			width: 320px;
+			height: 40px;
+			background-color: lightyellow;
+			color: darkblue;
+			font-size: 18px;
+			box-shadow: 0px 0px 30px;
+
+		}
+	</style>
+	<script type="text/javascript">
+		var rnum;
+		var myVar,fsec;
+		var rright=0, rwrong=0;
+		
+		// γεμιζει ο πινακας με τυχαιους αριθμους
+		function table_fill() {
+
+			fspace();
+			
+			var tabl = document.getElementById('tbl');
+			var i, j;
+			
+			rnum=Math.floor(Math.random() * 7) + 3;
+			document.getElementById('rndnum').innerHTML=rnum;
+
+			for (i=0;i<5;i++)
+				for(j=0;j<5; j++)
+				{
+					tabl.rows[i].cells[j].innerHTML = Math.floor(Math.random() * 100) + 1;
+				}
+
+			ftime();
+		}
+
+		// εμφανιζεται ένας αριθμος (δευτερολεπτα) από το 30 μεχρι το 0 
+		function ftime()
+		{
+			fsec=31;
+			myVar = setInterval(myTimer, 1000);
+			function myTimer() {
+  				fsec--;
+  				document.getElementById("sec30").innerHTML = fsec;
+  				if (fsec==0)
+  				{
+  					clearInterval(myVar);
+  					document.getElementById("res").innerHTML = " Right: " + rright + " Wrong: " + rwrong;
+  					rright=rwrong=0;
+
+  				}
+			}
+		}
+
+		// κενά στο αποτελεσμα, ασπρο background στα κελια του πινακα
+		function fspace()
+		{
+			var tabl = document.getElementById('tbl');
+			var i, j;
+			
+			clearInterval(myVar);
+			document.getElementById("res").innerHTML = "";
+			
+			for (i=0;i<5;i++)
+				for(j=0;j<5; j++)
+				{
+					tabl.rows[i].cells[j].style.background = "white";
+				}
+
+		}
+
+		// όταν κανουμε κλικ στον πινακα
+		function click_table(event)
+		{
+			/* event.target: βλέπουμε που συνέβη το γεγονός - επιστρέφει το στοιχείο που ενεργοποίησε το συμβάν. */
+			if (event.target.tagName == 'TD') 
+				click_td(event.target);
+		}
+
+		/* αν ο αριθμός στο td διαιρειται ακριβώς με το rnum (τυχαίος αριθμός) τότε είναι πολλαπλάσιό του  */
+		function click_td(curtd)
+		{
+			/* να αλλάζει χρωμα και έλεγχος στο κελί μονο οταν είναι ασπρο - δηλαδη δεν εχει επιλεγει- και δεν έχει τελειωσει ο χρονος */
+			if (curtd.style.background=="white" && fsec!=0)
+			{
+				if (parseInt(curtd.innerHTML)%rnum==0)
+				{
+					curtd.style.background = "green";
+					rright++;
+				}
+				else
+				{
+					curtd.style.background = "red";
+					rwrong++;
+				}
+			}
+		}
+
+	</script>
+</head>
+<body>
+<div>
+<h2>GAME - RANDOM NUMBERS - MULTIPLICATION </h2>
+<br><br>
+<input type="button" name="rnd" value="Start" onclick="table_fill()">
+<br><br>
+Random number (3-9):&nbsp;&nbsp;&nbsp; <span id="rndnum" style="font-size: 24px"></span><br><br>
+<table id="tbl" onclick="click_table(event)">
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<br>
+Time (seconds):&nbsp;&nbsp;&nbsp; <span id="sec30" style="font-size: 24px"></span><br><br>
+Result:&nbsp;&nbsp;&nbsp; <span id="res" style="font-size: 24px"></span><br><br>
+<p>Click the Start button.<br> Then click on the table cell that is a multiple of the random number from 3-9. </p>
+<br>
+</div>
+</body>
+</html>
